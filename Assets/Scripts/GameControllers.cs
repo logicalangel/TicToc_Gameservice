@@ -74,7 +74,6 @@ public class GameControllers : MonoBehaviour {
 
     private Member _me,_opponent,_currentTurnMember,_whoIsX;
     private Dictionary<string, Outcome> _outcomes;
-    private Save _lastSave;
     
     
     // Start is called before the first frame update
@@ -82,11 +81,10 @@ public class GameControllers : MonoBehaviour {
     {
         try
         {
+            NotificationUtils.Init();
             GameInit ();
             SetEventListeners();
             await ConnectToGamesService ();
-            await GetSaveData();
-            NotificationUtils.Init();
         }
         catch (Exception e)
         {
@@ -117,7 +115,6 @@ public class GameControllers : MonoBehaviour {
         {
             var save = await GameService.GetSaveGame<Save>();
             FileUtil.SaveWins(save.WinCounts);
-            _lastSave = save;
             Debug.LogError("GetSaveData Wins : " + save.WinCounts);
         }
         catch (Exception e)
@@ -550,10 +547,11 @@ public class GameControllers : MonoBehaviour {
         Status.text = "Error : " + e.Error + " , From : " + e.Type;
     }
 
-    private void OnSuccessfullyLogined(object sender, EventArgs e)
+    private async void OnSuccessfullyLogined(object sender, EventArgs e)
     {
         try
         {
+            await GetSaveData();
             Status.text = "Status : Connected!";
             startGameBtn.interactable = true;
         
