@@ -570,8 +570,8 @@ public class GameControllers : MonoBehaviour {
         }
         catch (Exception exception)
         {
-            Status.text = "OnSuccessfullyLogined Err : " + exception.Message;
             Debug.LogError("OnSuccessfullyLogined Err : " + exception.Message);
+            Status.text = "OnSuccessfullyLogined Err : " + exception.Message;
         }
        
     }

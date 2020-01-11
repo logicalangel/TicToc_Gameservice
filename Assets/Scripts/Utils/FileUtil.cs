@@ -96,10 +96,10 @@ namespace Utils
 
         public static void SaveWins(int wins)
         {
-            var bf = new BinaryFormatter();
-            var file = File.Create (Application.persistentDataPath + "/data.dat");
-            bf.Serialize(file,wins);
-            file.Close();
+                var bf = new BinaryFormatter();
+                var file = File.Create (Application.persistentDataPath + "/data.dat");
+                bf.Serialize(file,wins);
+                file.Close();
         }
     }
 }
