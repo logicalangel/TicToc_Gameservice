@@ -103,8 +103,6 @@ public class GameControllers : MonoBehaviour {
         Application.Quit();
     }
 
-
-
     /// <summary>
     /// Get Last Save User Data
     /// It May Throw Exception
