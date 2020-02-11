@@ -556,10 +556,7 @@ public class GameControllers : MonoBehaviour {
             // Start Game
             startGameBtn.onClick.AddListener(async () =>
             {
-                await GameService.GSLive.TurnBased.AutoMatch(new GSLiveOption.AutoMatchOption
-                {
-                    Role = "partner" , MinPlayer = 2 , MaxPlayer = 2 , IsPersist = false
-                });
+                await GameService.GSLive.TurnBased.AutoMatch(new GSLiveOption.AutoMatchOption("partner",2,2));
 
                 // go to waiting ui
                 startGameBtn.interactable = false;
