@@ -299,6 +299,9 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="GameServiceHelper">
+      <HintPath>/Users/alirezaghodrati/UnityProject/TicToc_Gameservice/Assets/Plugins/GameService/Core/GameServiceHelper.dll</HintPath>
+    </Reference>
     <Reference Include="FiroozehGameService">
       <HintPath>/Users/alirezaghodrati/UnityProject/TicToc_Gameservice/Assets/Plugins/GameService/Core/FiroozehGameService.dll</HintPath>
     </Reference>

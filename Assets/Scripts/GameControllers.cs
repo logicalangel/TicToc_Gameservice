@@ -24,15 +24,17 @@ using FiroozehGameService.Core;
 using FiroozehGameService.Core.GSLive;
 using FiroozehGameService.Handlers;
 using FiroozehGameService.Models;
-using FiroozehGameService.Models.Command;
 using FiroozehGameService.Models.GSLive;
+using FiroozehGameService.Models.GSLive.Command;
 using FiroozehGameService.Models.GSLive.TB;
+using FiroozehGameService.Utils;
 using Handlers;
 using Models;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using LogType = FiroozehGameService.Utils.LogType;
 
 /**
 * @author Alireza Ghodrati
@@ -40,6 +42,7 @@ using Utils;
 
 
 public class GameControllers : MonoBehaviour {
+   
     public Canvas startMenu;
     public Canvas LoginCanvas;
     public Canvas GamePlay;
@@ -81,10 +84,9 @@ public class GameControllers : MonoBehaviour {
     {
         try
         {
-            NotificationUtils.Init();
             GameInit ();
             SetEventListeners();
-            await ConnectToGamesService ();
+            await ConnectToGamesService();
         }
         catch (Exception e)
         {
@@ -97,7 +99,7 @@ public class GameControllers : MonoBehaviour {
     
     // Update is called once per frame
     void Update ()
-    {      
+    {
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
         GameService.Logout();
         Application.Quit();
@@ -113,7 +115,7 @@ public class GameControllers : MonoBehaviour {
         {
             var save = await GameService.GetSaveGame<Save>();
             FileUtil.SaveWins(save.WinCounts);
-            Debug.LogError("GetSaveData Wins : " + save.WinCounts);
+            Debug.Log("GetSaveData Wins : " + save.WinCounts);
         }
         catch (Exception e)
         {
@@ -222,7 +224,7 @@ public class GameControllers : MonoBehaviour {
     /// </summary>
     private void SetEventListeners()
     {
-        TurnBasedEventHandlers.SuccessfullyLogined += OnSuccessfullyLogined;
+        CoreEventHandlers.SuccessfullyLogined += OnSuccessfullyLogined;
         TurnBasedEventHandlers.Error += OnError;
                 
         TurnBasedEventHandlers.JoinedRoom += OnJoinRoom;
@@ -234,9 +236,14 @@ public class GameControllers : MonoBehaviour {
         TurnBasedEventHandlers.RoomMembersDetailReceived += OnRoomMembersDetailReceived;
         TurnBasedEventHandlers.CurrentTurnMemberReceived += OnCurrentTurnMember;
 
+        LogUtil.LogEventHandler += LogEventHandler;
     }
 
-    
+    private void LogEventHandler(object sender, Log e)
+    {
+       if(e.Type == LogType.Normal) Debug.Log(e.Txt);
+        else Debug.LogError(e.Txt);
+    }
 
 
     private void GameInit () {
