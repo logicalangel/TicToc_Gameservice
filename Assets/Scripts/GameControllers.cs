@@ -78,6 +78,10 @@ public class GameControllers : MonoBehaviour {
     private Member _me,_opponent,_currentTurnMember,_whoIsX;
     private Dictionary<string, Outcome> _outcomes;
     
+    private List<Member> members;
+    
+    
+   
     
     // Start is called before the first frame update
     async void Start ()
@@ -239,7 +243,9 @@ public class GameControllers : MonoBehaviour {
         LogUtil.LogEventHandler += LogEventHandler;
     }
 
-    private void LogEventHandler(object sender, Log e)
+    
+
+     private void LogEventHandler(object sender, Log e)
     {
        if(e.Type == LogType.Normal) Debug.Log(e.Txt);
         else Debug.LogError(e.Txt);
