@@ -233,6 +233,7 @@ public class GameControllers : MonoBehaviour {
                 
         TurnBasedEventHandlers.JoinedRoom += OnJoinRoom;
         TurnBasedEventHandlers.Completed += OnCompleted;
+        TurnBasedEventHandlers.AutoMatchUpdated += AutoMatchUpdated;
         TurnBasedEventHandlers.Finished += OnFinished;
         TurnBasedEventHandlers.ChoosedNext += OnChooseNext;
         TurnBasedEventHandlers.TakeTurn += OnTakeTurn;
@@ -243,7 +244,8 @@ public class GameControllers : MonoBehaviour {
         LogUtil.LogEventHandler += LogEventHandler;
     }
 
-    
+     
+
 
      private void LogEventHandler(object sender, Log e)
     {
@@ -383,7 +385,7 @@ public class GameControllers : MonoBehaviour {
              
             // Only Set In First
             if(_whoIsX == null)
-            _whoIsX = currentMember;
+                _whoIsX = currentMember;
         
             if (_currentTurnMember != null)
                 Turn.text = _currentTurnMember.User.IsMe ? "You Turn" : "Opponent Turn";
@@ -410,6 +412,7 @@ public class GameControllers : MonoBehaviour {
 
     private void OnLeaveRoom(object sender, Member e)
     {
+        Debug.Log("OnLeaveRoom : " + e.Name);
         try
         {
             Turn.text = "Opponent Left The Game";
@@ -428,6 +431,7 @@ public class GameControllers : MonoBehaviour {
     
     private async void OnTakeTurn(object sender, Turn turn)
     {
+        Debug.Log("OnTakeTurn : " + turn.WhoTakeTurn.Name);
         try
         {
             var turnData = JsonConvert.DeserializeObject<TurnData>(turn.Data);
@@ -464,6 +468,7 @@ public class GameControllers : MonoBehaviour {
 
     private void OnChooseNext(object sender, Member whoIsNext)
     {
+        Debug.Log("OnChooseNext : " + whoIsNext.Name);
         try
         {
             _currentTurnMember = whoIsNext.User.IsMe ? _me : _opponent;
@@ -492,7 +497,7 @@ public class GameControllers : MonoBehaviour {
                         ok = true;
                     
             if(ok)
-            await GameService.GSLive.TurnBased.Complete(finish.Outcomes.First(o => o.Value.Placement == 1).Key);
+                await GameService.GSLive.TurnBased.Complete(finish.Outcomes.First(o => o.Value.Placement == 1).Key);
             
         }
         catch (Exception e)
@@ -527,6 +532,7 @@ public class GameControllers : MonoBehaviour {
 
     private async void OnJoinRoom(object sender, JoinEvent e)
     {
+
         try
         {
             startMenu.enabled = false;
@@ -580,6 +586,15 @@ public class GameControllers : MonoBehaviour {
         {
             Debug.LogError("OnSuccessfullyLogined Err : " + exception.Message);
             Status.text = "OnSuccessfullyLogined Err : " + exception.Message;
+        }
+       
+    }
+    
+    private void AutoMatchUpdated(object sender, AutoMatchEvent e)
+    {
+        foreach (var member in e.Players)
+        {
+            Debug.Log(member.Name);
         }
        
     }
