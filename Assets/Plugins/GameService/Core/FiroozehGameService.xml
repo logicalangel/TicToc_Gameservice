@@ -92,11 +92,18 @@
             <param name="userId">(Not NULL)The ID of User you Want To get Detail</param>
             <value> return User Data </value>
         </member>
+        <member name="M:FiroozehGameService.Core.GameService.GetMemberData(System.String)">
+            <summary>
+                With this command you can get a Member Data with the Member ID
+            </summary>
+            <param name="memberId">(Not NULL)The ID of Member you Want To get Detail</param>
+            <value> return Member Data </value>
+        </member>
         <member name="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)">
             <summary>
                 With this command you can Edit information about the current player is playing
             </summary>
-            <value> return CurrentPlayer Data </value>
+            <value> return Edited Current Member Data Data </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.RemoveLastSave">
             <summary>
@@ -285,27 +292,58 @@
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveChat">
             <summary>
-            Represents Game Service Chat System
+                Represents Game Service Chat System
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.SubscribeChannel(System.String)">
             <summary>
-            Subscribe In Channel With channelName.
+                Subscribe In Channel With channelName.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To Subscribe</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)">
             <summary>
-            UnSubscribeChannel With channelName.
+                UnSubscribeChannel With channelName.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To UnSubscribe</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendChannelMessage(System.String,System.String)">
             <summary>
-            Send Message In SubscribedChannel.
+                Send Message In SubscribedChannel.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendPrivateMessage(System.String,System.String)">
+            <summary>
+                Send Message To Member.
+            </summary>
+            <param name="memberId">(NOTNULL)ID of Member You want To Send Message</param>
+            <param name="message">(NOTNULL)Message Data</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelsSubscribed">
+            <summary>
+                Get Channels Subscribe List
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelRecentMessages(System.String)">
+            <summary>
+                Get Channel last 30 Messages
+            </summary>
+            <param name="channelName">(NOTNULL)Name of Channel You want To Get last 30 Messages</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelMembers(System.String,System.Int32,System.Int32)">
+            <summary>
+                Get Channel Members
+            </summary>
+            <param name="channelName">(NOTNULL)Name of Channel You want To Get Members</param>
+            <param name="skip">The skip value</param>
+            <param name="limit">(Max = 15) The Limit value</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetPendingMessages">
+            <summary>
+                Get Your Pending Messages
+            </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption">
             <summary>
@@ -542,27 +580,57 @@
         </member>
         <member name="T:FiroozehGameService.Handlers.ChatEventHandlers">
             <summary>
-            Represents ChatEventHandlers
+                Represents ChatEventHandlers
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnChatReceived">
             <summary>
-            Calls When New Chat Received
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendChannelMessage(System.String,System.String)"/>
+                Calls When New Chat Received
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendChannelMessage(System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnSubscribeChannel">
             <summary>
-            Calls When Current Player Subscribe Channel
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SubscribeChannel(System.String)"/>
+                Calls When Current Player Subscribe Channel
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SubscribeChannel(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnUnSubscribeChannel">
             <summary>
-            Calls When Current Player UnSubscribe Channel
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)"/>
+                Calls When Current Player UnSubscribe Channel
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsSubscribed">
+            <summary>
+                Calls When Current Player Get Channels Subscribed List
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelsSubscribed" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsMembers">
+            <summary>
+                Calls When Current Player Get Channel Members List
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelMembers(System.String,System.Int32,System.Int32)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsRecentMessages">
+            <summary>
+                Calls When Current Player Get Channel Recent Messages
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelRecentMessages(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.PendingMessages">
+            <summary>
+                Calls When Current Player Get Pending Messages
+                Pending Messages Saved when the Current Player is offline
+                You Can Get Them With this Function
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelRecentMessages(System.String)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.CoreEventHandlers">
@@ -754,51 +822,51 @@
             Represents Achievement Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Name">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Name">
             <summary>
             Gets the Achievement Name.
             </summary>
             <value>the Achievement Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Key">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Key">
             <summary>
             Gets the Achievement Key.
             You Can Use It To Unlock Achievement
             </summary>
             <value>the Achievement Key</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Desc">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Desc">
             <summary>
             Gets the Achievement Description.
             </summary>
             <value>the Achievement Description</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Point">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Point">
             <summary>
             Gets the Achievement Point.
             </summary>
             <value>the Achievement Point</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Image">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Image">
             <summary>
             Gets the Achievement Cover URL.
             </summary>
             <value>the Achievement Cover URL</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Status">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Status">
             <summary>
             Gets the Achievement status.
             if the status is True You Can Unlock Achievement
             </summary>
             <value>the Achievement status</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Game">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Game">
             <summary>
             Gets the Game id.
             </summary>
             <value>the Game id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Achievement.Earned">
+        <member name="F:FiroozehGameService.Models.BasicApi.Achievement.Earned">
             <summary>
             Gets the Status of Earned Achievement
             if the status is True You Earned this Achievement Before
@@ -810,13 +878,13 @@
                 Represents BucketCore Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.Id">
+        <member name="F:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.Id">
             <summary>
                 Gets the Bucket Object ID.
             </summary>
             <value>the Bucket Object ID</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.OwnerId">
+        <member name="F:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.OwnerId">
             <summary>
                 Gets the Bucket Owner User ID.
             </summary>
@@ -842,109 +910,147 @@
             Represents ConstraintOptionData Model In Game Service Basic API
             </summary>
         </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Constraint.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constraint BucketOption
+            </summary>
+            <param name="skip">Skip Value for Constraint BucketOption</param>
+            <param name="limit">Limit Value for Constraint BucketOption</param>
+        </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Buckets.FindByElement`1">
             <summary>
             Represents ElementOptionData Model In Game Service Basic API
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.FindByElement`1.#ctor(System.String,`0)">
+            <summary>
+            FindByElement BucketOption
+            </summary>
+            <param name="name">the name of Element you want to find it</param>
+            <param name="value">the value of Element you want to find it</param>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Ownership">
             <summary>
             Represents OwnershipOptionData Model In Game Service Basic API
             </summary>
         </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Ownership.#ctor(FiroozehGameService.Models.Enums.BucketOwnershipTypes,System.String)">
+            <summary>
+            the Ownership BucketOption
+            </summary>
+            <param name="ownershipTypes">type of ownership</param>
+            <param name="ownerUserId">user id of BucketOwnershipTypes.Another type</param>
+        </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Buckets.SortByElement">
             <summary>
             Represents SortByOptionData Model In Game Service Basic API
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.SortByElement.#ctor(System.String,FiroozehGameService.Models.Enums.BucketSortOrder)">
+            <summary>
+            the SortByElement BucketOption
+            </summary>
+            <param name="elementName">the name of Element you want to Sort by it</param>
+            <param name="sortOrder">the sortOrder you want to Sort by it</param>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.EditUserProfile">
             <summary>
             Represents EditUserProfile In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.NickName">
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.NickName">
             <summary>
             Set New NickName For CurrentPlayer.
             </summary>
             <value> New NickName For CurrentPlayer</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.Logo">
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.Logo">
             <summary>
             Set New ProfileLogo(BytesBuffer) For CurrentPlayer.
             </summary>
             <value> New ProfileLogo For CurrentPlayer</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.AllowAutoAddToGame">
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.AllowAutoAddToGame">
             <summary>
             Set Allow Auto Add To Game For CurrentPlayer.
             </summary>
             <value> Allow Auto Add To Game For CurrentPlayer</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowPublicActivity">
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowPublicActivity">
             <summary>
             Set Show Public Activity For CurrentPlayer.
             </summary>
             <value> Allow Show Public Activity For CurrentPlayer</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowGroupActivity">
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowGroupActivity">
             <summary>
             Set Show Group Activity For CurrentPlayer.
             </summary>
             <value> Allow Show Group Activity For CurrentPlayer</value>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.EditUserProfile.#ctor(System.String,System.Byte[],System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            EditUserProfile Data Model
+            </summary>
+            <param name="nickName">the value of nickName you want to update</param>
+            <param name="logo">the value of logo you want to update</param>
+            <param name="allowAutoAddToGame">the value of allowAutoAddToGame you want to update</param>
+            <param name="showPublicActivity">the value of showPublicActivity you want to update</param>
+            <param name="showGroupActivity">the value of showGroupActivity you want to update</param>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.LeaderBoard">
             <summary>
             Represents LeaderBoard Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.Name">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.Name">
             <summary>
             Gets the LeaderBoard Name.
             </summary>
             <value>the LeaderBoard Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.Key">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.Key">
             <summary>
             Gets the LeaderBoard Key.
             You Can Use It To Submit Score in a LeaderBoard
             </summary>
             <value>the LeaderBoard Key</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.Status">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.Status">
             <summary>
             Gets the LeaderBoard status.
             if the status is True You Can Submit Score in LeaderBoard
             </summary>
             <value>the LeaderBoard status</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.Image">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.Image">
             <summary>
             Gets the LeaderBoard Cover URL.
             </summary>
             <value>the LeaderBoard Cover URL</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.From">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.From">
             <summary>
             Gets the LeaderBoard Form Value.
             this Value Sets In GameService Developers Panel.
             </summary>
             <value>the LeaderBoard From Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.To">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.To">
             <summary>
             Gets the LeaderBoard To Value.
             this Value Sets In GameService Developers Panel.
             </summary>
             <value>the LeaderBoard To Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.Order">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.Order">
             <summary>
             Gets the LeaderBoard Order Type.
             this Type Sets In GameService Developers Panel.
             </summary>
             <value>the LeaderBoard Order Type</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoard.Game">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoard.Game">
             <summary>
             Gets the Game id.
             </summary>
@@ -955,13 +1061,13 @@
             Represents LeaderBoardDetails Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoardDetails.Leaderboard">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoardDetails.Leaderboard">
             <summary>
             Gets the LeaderBoard.
             </summary>
             <value>the LeaderBoard</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.LeaderBoardDetails.Scores">
+        <member name="F:FiroozehGameService.Models.BasicApi.LeaderBoardDetails.Scores">
             <summary>
             Gets the List Of Scores.
             </summary>
@@ -972,25 +1078,25 @@
             Represents SaveDetails Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.Game">
+        <member name="F:FiroozehGameService.Models.BasicApi.SaveDetails.Game">
             <summary>
             Gets the Game id.
             </summary>
             <value>the Game id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.User">
+        <member name="F:FiroozehGameService.Models.BasicApi.SaveDetails.User">
             <summary>
             Gets the User id.
             </summary>
             <value>the User id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.Name">
+        <member name="F:FiroozehGameService.Models.BasicApi.SaveDetails.Name">
             <summary>
             Gets the Save Name.
             </summary>
             <value>the Save Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.LastModify">
+        <member name="F:FiroozehGameService.Models.BasicApi.SaveDetails.LastModify">
             <summary>
             Gets the Last Modify Save Time.
             </summary>
@@ -998,36 +1104,36 @@
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Score">
             <summary>
-            Represents Score Data Model In Game Service Basic API
+                Represents Score Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Score.Game">
+        <member name="F:FiroozehGameService.Models.BasicApi.Score.Game">
             <summary>
-            Gets the Game id.
+                Gets the Game id.
             </summary>
             <value>the Game id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Score.User">
+        <member name="F:FiroozehGameService.Models.BasicApi.Score.Submitter">
             <summary>
-            Gets the User Submit this Score.
+                Gets the Member Submit this Score.
             </summary>
-            <value>the User Submit this Score</value>
+            <value>the Member Submit this Score</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Score.Value">
+        <member name="F:FiroozehGameService.Models.BasicApi.Score.Value">
             <summary>
-            Gets the Value of This Score.
+                Gets the Value of This Score.
             </summary>
             <value>the Value of This Score</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Score.Rank">
+        <member name="F:FiroozehGameService.Models.BasicApi.Score.Rank">
             <summary>
-            Gets the Rank of This Score.
+                Gets the Rank of This Score.
             </summary>
             <value>the Rank of This Score</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Score.Tries">
+        <member name="F:FiroozehGameService.Models.BasicApi.Score.Tries">
             <summary>
-            Gets the Tries Count of This Score.
+                Gets the Tries Count of This Score.
             </summary>
             <value>the Tries Count of This Score</value>
         </member>
@@ -1036,19 +1142,19 @@
             Represents SubmitScoreResponse Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SubmitScoreResponse.Leaderboard">
+        <member name="F:FiroozehGameService.Models.BasicApi.SubmitScoreResponse.Leaderboard">
             <summary>
             Gets the LeaderBoard.
             </summary>
             <value>the LeaderBoard</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SubmitScoreResponse.Score">
+        <member name="F:FiroozehGameService.Models.BasicApi.SubmitScoreResponse.Score">
             <summary>
             Gets the Score Value.
             </summary>
             <value>the Score Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SubmitScoreResponse.Tries">
+        <member name="F:FiroozehGameService.Models.BasicApi.SubmitScoreResponse.Tries">
             <summary>
             Gets the Tries Value.
             How Many Tries To Submit Score
@@ -1060,25 +1166,25 @@
             Represents User Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.User.Id">
+        <member name="F:FiroozehGameService.Models.BasicApi.User.Id">
             <summary>
             Gets the User id.
             </summary>
             <value>the User id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.User.Name">
+        <member name="F:FiroozehGameService.Models.BasicApi.User.Name">
             <summary>
             Gets the User Name.
             </summary>
             <value>the User Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.User.Logo">
+        <member name="F:FiroozehGameService.Models.BasicApi.User.Logo">
             <summary>
             Gets the User Logo URL.
             </summary>
             <value>the User Logo URL</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.User.Point">
+        <member name="F:FiroozehGameService.Models.BasicApi.User.Point">
             <summary>
             Gets the User Point.
             </summary>
@@ -1298,31 +1404,37 @@
                 Represents Chat Data Model In GameService Command System
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.IsPrivate">
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.IsPrivate">
             <summary>
                 Gets the Chat Privacy.
             </summary>
             <value>the Chat Privacy</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.ReceiverId">
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ChannelName">
+            <summary>
+                Gets the Chat Channel Name
+            </summary>
+            <value>the Chat Channel Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ReceiverId">
             <summary>
                 Gets the Chat Receiver Id.
             </summary>
             <value>the Chat Receiver Id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.Sender">
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Sender">
             <summary>
                 Gets the Chat Sender Member.
             </summary>
             <value>the Chat Sender Member</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.Message">
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Message">
             <summary>
                 Gets the Chat Message Data
             </summary>
             <value>the Chat Message Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.SendTime">
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.SendTime">
             <summary>
                 Gets the Chat Message Send Time in Unix Time
             </summary>
@@ -1384,13 +1496,13 @@
             Represents Notification Model In Game Service Command
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.Title">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.Notification.Title">
             <summary>
             Gets the Notification Title
             </summary>
             <value>the Notification Title</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.Description">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.Notification.Description">
             <summary>
             Gets the Notification Description
             </summary>
@@ -1402,13 +1514,13 @@
             </summary>
             <value>the Notification Action Type</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.ActionData">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.Notification.ActionData">
             <summary>
             Gets the Notification Action Data
             </summary>
             <value>the Notification Action Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.JsonData">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.Notification.JsonData">
             <summary>
             Gets the Notification Json Data
             </summary>
@@ -1419,56 +1531,56 @@
             Represents NotificationActionData Model In Game Service Command
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.PackageName">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.PackageName">
             <summary>
             Gets the PackageName Data
             this Data may be Null if Not Set in Developer Panel
             </summary>
             <value>the PackageName Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.MarketType">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.MarketType">
             <summary>
             Gets the MarketType Data
             this Data may be Null if Not Set in Developer Panel
             </summary>
             <value>the MarketType Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.LinkAddress">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.LinkAddress">
             <summary>
             Gets the LinkAddress Data
             this Data may be Null if Not Set in Developer Panel
             </summary>
             <value>the LinkAddress Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailAddress">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailAddress">
             <summary>
             Gets the EmailAddress Data
             this Data may be Null if Not Set in Developer Panel
             </summary>
             <value>the EmailAddress Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailTitle">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailTitle">
             <summary>
             Gets the EmailTitle Data
             this Data may be Null if Not Set in Developer Panel
             </summary>
             <value>the EmailTitle Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailBody">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailBody">
             <summary>
             Gets the EmailBody Data
             this Data may be Null if Not Set in Developer Panel
             </summary>
             <value>the EmailBody Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.TelegramChannel">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.TelegramChannel">
             <summary>
             Gets the TelegramChannel Data
             this Data may be Null if Not Set in Developer Panel
             </summary>
             <value>the TelegramChannel Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.IntentAction">
+        <member name="F:FiroozehGameService.Models.GSLive.Command.NotificationActionData.IntentAction">
             <summary>
             Gets the IntentAction Data
             this Data may be Null if Not Set in Developer Panel
@@ -1480,19 +1592,19 @@
             Represents Game Data Model In GameService MultiPlayer System (GSLive)
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Game.Id">
+        <member name="F:FiroozehGameService.Models.GSLive.Game.Id">
             <summary>
             Gets the Game id.
             </summary>
             <value>the Game id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Game.Logo">
+        <member name="F:FiroozehGameService.Models.GSLive.Game.Logo">
             <summary>
             Gets the Game Logo URL.
             </summary>
             <value>the Game Logo</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Game.Name">
+        <member name="F:FiroozehGameService.Models.GSLive.Game.Name">
             <summary>
             Gets the Game Name.
             </summary>
@@ -1502,6 +1614,13 @@
             <summary>
                 Represents Invite Data Model In GameService MultiPlayer System (GSLive)
             </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Id">
+            <summary>
+                Gets the Invite id.
+                You Can Use It in Accept Invite
+            </summary>
+            <value>the Invite id</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.Invite.Game">
             <summary>
@@ -1515,20 +1634,13 @@
             </summary>
             <value>The Room Where You Are Invited</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Invite.Id">
-            <summary>
-                Gets the Invite id.
-                You Can Use It in Accept Invite
-            </summary>
-            <value>the Invite id</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Invite.Inviter">
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Inviter">
             <summary>
                 Gets the Inviter Member.
             </summary>
             <value>the Inviter Member</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Invite.Invited">
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Invited">
             <summary>
                 Gets the Invited User Id.
             </summary>
@@ -1539,20 +1651,20 @@
             Represents JoinData Data Model In GameService MultiPlayer System (GSLive)
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.JoinData.JoinType">
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinType">
             <summary>
             Gets the Room Join Type.
             </summary>
             <value>the Room Join Type</value>
             <see cref="T:FiroozehGameService.Models.Enums.GSLive.JoinType"/>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.JoinData.RoomData">
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.RoomData">
             <summary>
             Gets the Room Join Data.
             </summary>
             <value>the Room Join Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.JoinData.JoinedMember">
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMember">
             <summary>
             Gets the Player Member Who Joined To Room.
             </summary>
@@ -1563,26 +1675,26 @@
                 Represents Member Data Model In GameService MultiPlayer System (GSLive)
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Member.Id">
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Id">
             <summary>
                 Gets the Member ID
                 You Can Use it In MultiPlayer Functions that Needs Member id
             </summary>
             <value>the Member ID</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Member.Name">
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Name">
             <summary>
                 Gets the Member Name.
             </summary>
             <value>the Member Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Member.Logo">
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Logo">
             <summary>
                 Gets the Member Logo URL.
             </summary>
             <value>the Member Logo URL</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Member.User">
+        <member name="F:FiroozehGameService.Models.GSLive.Member.User">
             <summary>
                 Gets the Member User Data
             </summary>
@@ -1593,79 +1705,79 @@
                 Represents Room Data Model In GameService MultiPlayer System (GSLive)
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Id">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Id">
             <summary>
                 Gets the Room id.
                 You Can Use it In MultiPlayer Functions that Needs Room id
             </summary>
             <value>the Room id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Name">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Name">
             <summary>
                 Gets the Room Name.
                 it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption" />
             </summary>
             <value>the Room Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Logo">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Logo">
             <summary>
                 Gets the Room Logo URL.
             </summary>
             <value>the Room Logo URL</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Creator">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Creator">
             <summary>
                 Gets the Room Creator Id.
             </summary>
             <value>the Room Creator Id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.PlayersId">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.PlayersId">
             <summary>
                 Gets the Room Players Member Id.
             </summary>
             <value>the Room Players Member Id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Min">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Min">
             <summary>
                 Gets the Room Minimum Member Value To Accept.
                 it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption" />
             </summary>
             <value>the Room Minimum Member Value To Accept</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Max">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Max">
             <summary>
                 Gets the Room Minimum Member Value To Accept.
                 it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption" />
             </summary>
             <value>the Room Maximum Member Value To Accept</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Role">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Role">
             <summary>
                 Gets the Room Role Value.
                 it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption" />
             </summary>
             <value>the Room Role Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.GameId">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.GameId">
             <summary>
                 Gets the Game Id
             </summary>
             <value>the the Game Id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.IsPrivate">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.IsPrivate">
             <summary>
                 Gets the Room Privacy Value.
                 it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption" />
             </summary>
             <value>the Room Privacy Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.Status">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.Status">
             <summary>
                 Gets the Room Status Value.
             </summary>
             <value>the Room Status Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.Room.GsLiveType">
+        <member name="F:FiroozehGameService.Models.GSLive.Room.GsLiveType">
             <summary>
                 Gets the Room Type
             </summary>
@@ -1676,66 +1788,66 @@
             Represents RoomData Data Model In GameService MultiPlayer System (GSLive)
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Id">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Id">
             <summary>
             Gets the Current Room id.
             </summary>
             <value>the Room id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Name">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Name">
             <summary>
             Gets the Room Name.
             it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption"/>
             </summary>
             <value>the Room Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Logo">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Logo">
             <summary>
             Gets the Room Logo URL.
             </summary>
             <value>the Room Logo URL</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Creator">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Creator">
             <summary>
             Gets the Room Creator Id.
             </summary>
             <value>the Room Creator Id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Min">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Min">
             <summary>
             Gets the Room Minimum Member Value To Accept.
             it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Minimum Member Value To Accept</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Max">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Max">
             <summary>
             Gets the Room Minimum Member Value To Accept.
             it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Maximum Member Value To Accept</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Role">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Role">
             <summary>
             Gets the Room Role Value.
             it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Role Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.IsPrivate">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.IsPrivate">
             <summary>
             Gets the Room Privacy Value.
             it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Privacy Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.Status">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Status">
             <summary>
             Gets the Room Status Value.
             </summary>
             <value>the Room Status Value</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RoomData.JoinedPlayers">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.JoinedPlayers">
             <summary>
             Gets the Room Players Joined Count 
             </summary>
@@ -1746,25 +1858,25 @@
                 Represents Message Data Model In GameService RealTime MultiPlayer System
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.Message.RoomId">
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.RoomId">
             <summary>
                 Gets the RoomId Receive This Message.
             </summary>
             <value>the RoomId Receive This Message</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.Message.SenderId">
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.SenderId">
             <summary>
                 Gets the Sender Member Id.
             </summary>
             <value>the Sender Id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.Message.ReceiverId">
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.ReceiverId">
             <summary>
                 Gets the Receiver Member Id.
             </summary>
             <value>the Receiver Id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.Message.Data">
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.Data">
             <summary>
                 Gets the Message Data
             </summary>
@@ -1799,13 +1911,13 @@
             Represents Complete Data Model In GameService TurnBased MultiPlayer System
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Complete.AcceptCounts">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Complete.AcceptCounts">
             <summary>
             Gets the Accept Counts from Other Players.
             </summary>
             <value>the Accept Counts from Other Players</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Complete.Result">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Complete.Result">
             <summary>
             Gets the Game Result(Outcomes).
             (Type : Dictionary(MemberID,Outcome))
@@ -1817,13 +1929,13 @@
                 Represents Finish Data Model In GameService TurnBased MultiPlayer System
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Finish.MemberFinish">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Finish.MemberFinish">
             <summary>
                 Gets Member Data of Has Announced The End Of The Game.
             </summary>
             <value>Member Data of Has Announced The End Of The Game</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Finish.Outcomes">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Finish.Outcomes">
             <summary>
                 Gets the Outcomes sent from the player.
                 Call From Other Player With this Function <see cref="T:FiroozehGameService.Models.GSLive.TB.Finish" />
@@ -1836,30 +1948,37 @@
             Represents Outcome Data Model In GameService TurnBased MultiPlayer System
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Outcome.Placement">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Outcome.Placement">
             <summary>
             Gets the Placement of Outcome.
             </summary>
             <value>the Placement of Outcome</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Outcome.Result">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Outcome.Result">
             <summary>
             Gets the Result of Outcome.
             </summary>
             <value>the Result of Outcome</value>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.TB.Outcome.Equals(FiroozehGameService.Models.GSLive.TB.Outcome)">
+            <summary>
+            Equals of Outcomes
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.TB.Turn">
             <summary>
             Represents Turn Data Model In GameService TurnBased MultiPlayer System
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Turn.Data">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Turn.Data">
             <summary>
             Gets the Data Send In Turn By Other Player.
             </summary>
             <value>the Data Send In Turn By Other Player</value>
         </member>
-        <member name="P:FiroozehGameService.Models.GSLive.TB.Turn.WhoTakeTurn">
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Turn.WhoTakeTurn">
             <summary>
             Gets The Player Member who has TakeTurn.
             </summary>
@@ -1870,19 +1989,19 @@
             Represents Game Service AssetsInfoData Class
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.Internal.AssetInfoData.Size">
+        <member name="F:FiroozehGameService.Models.Internal.AssetInfoData.Size">
             <summary>
             Gets the Asset Size in Bytes.
             </summary>
             <value>the Asset Size in Bytes</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Internal.AssetInfoData.Name">
+        <member name="F:FiroozehGameService.Models.Internal.AssetInfoData.Name">
             <summary>
             Gets the Asset Name
             </summary>
             <value>the Asset Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Internal.AssetInfoData.Link">
+        <member name="F:FiroozehGameService.Models.Internal.AssetInfoData.Link">
             <summary>
             Gets the Asset Link for Download
             </summary>
@@ -1893,13 +2012,13 @@
             Represents Game Service AssetInfo Class
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.Internal.AssetInfo.Status">
+        <member name="F:FiroozehGameService.Models.Internal.AssetInfo.Status">
             <summary>
             Gets the Asset Info Get Status
             </summary>
             <value>the Asset Info Get Status</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Internal.AssetInfo.AssetInfoData">
+        <member name="F:FiroozehGameService.Models.Internal.AssetInfo.AssetInfoData">
             <summary>
             Gets the Asset Info Data Class
             </summary>
